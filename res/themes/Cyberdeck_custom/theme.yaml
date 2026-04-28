@@ -191,28 +191,6 @@ STATS:
         FONT_COLOR: 248, 177, 51
         #BACKGROUND_COLOR: 100, 100, 100
         BACKGROUND_IMAGE: background.png
-    FAN_SPEED:
-      RADIAL:
-        SHOW: True
-        X: 233
-        Y: 68
-        RADIUS: 31
-        WIDTH: 13
-        MIN_VALUE: 0
-        MAX_VALUE: 100
-        ANGLE_START: 320
-        ANGLE_END: 320
-        ANGLE_STEPS: 20
-        ANGLE_SEP: 0
-        CLOCKWISE: False
-        BAR_COLOR: 200, 100, 50
-        SHOW_TEXT: True
-        SHOW_UNIT: True
-        FONT: roboto/Roboto-Bold.ttf
-        FONT_SIZE: 15
-        FONT_COLOR: 248, 177, 51
-        #BACKGROUND_COLOR: 200, 200, 200
-        BACKGROUND_IMAGE: background.png
     FPS:
       TEXT:
         SHOW: False
@@ -249,3 +227,30 @@ STATS:
           FONT_COLOR: 255, 255, 255
           # BACKGROUND_COLOR: 132, 154, 165
           BACKGROUND_IMAGE: background.png
+
+  CUSTOM:
+    # For now the refresh interval (in seconds) is the same for all custom data classes
+    INTERVAL: 3
+    # The name of the class must be an exact match to the class name in sensors_custom.py
+    GPUFAN:
+      RADIAL:
+        SHOW: True
+        X: 233
+        Y: 68
+        RADIUS: 31
+        WIDTH: 13
+        MIN_VALUE: 0
+        MAX_VALUE: 100
+        ANGLE_START: 320
+        ANGLE_END: 320
+        ANGLE_STEPS: 20
+        ANGLE_SEP: 0
+        CLOCKWISE: False
+        BAR_COLOR: 200, 100, 50
+        SHOW_TEXT: True
+        SHOW_UNIT: True
+        FONT: roboto/Roboto-Bold.ttf
+        FONT_SIZE: 15
+        FONT_COLOR: 248, 177, 51
+        #BACKGROUND_COLOR: 200, 200, 200
+        BACKGROUND_IMAGE: background.png

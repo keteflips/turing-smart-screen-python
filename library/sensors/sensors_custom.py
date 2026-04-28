@@ -26,6 +26,7 @@ import math
 import platform
 from abc import ABC, abstractmethod
 from typing import List
+import subprocess
 
 
 # Custom data classes must be implemented in this file, inherit the CustomDataSource and implement its 2 methods
@@ -99,3 +100,34 @@ class ExampleCustomTextOnlyData(CustomDataSource):
     def last_values(self) -> List[float]:
         # If a custom data class only has text values, it won't be possible to display line graph
         pass
+
+
+class GPUFAN(CustomDataSource):
+    last_val = [math.nan] * 10
+    value = 0.0
+
+    def as_numeric(self) -> float:
+        # Este valor (0 a 100) es el que el programa usa para rellenar el anillo radial
+        try:
+            resultado = subprocess.run(
+                ["nvidia-smi", "--query-gpu=fan.speed", "--format=csv,noheader,nounits"],
+                capture_output=True,
+                text=True,
+                timeout=2.0  # Evita bloqueos si la GPU tarda en responder
+            )
+            self.value = float(resultado.stdout.strip())
+        except Exception:
+            pass
+
+        self.last_val.append(self.value)
+        self.last_val.pop(0)
+
+        return self.value
+
+    def as_string(self) -> str:
+        # Cambiamos >5.1f (un decimal) por >4.0f (cero decimales)
+        return f'{self.value:>4.0f}%'
+
+    def last_values(self) -> List[float]:
+        # Para el radial esto no es estrictamente necesario, pero lo mantenemos por compatibilidad
+        return self.last_val
